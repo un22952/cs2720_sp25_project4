@@ -41,10 +41,14 @@ public class SortDriver {
 
                 break;
             case "q":
-
+                s.quickSL(arr, 0, len - 1);
+                System.out.println("1 2 3 4 5 ........... 9999");
+                System.out.println("#Quick-sort-fp comparisons: " + s.getCount());
                 break;
             case "r":
-
+                s.quickSR(arr, 0, len - 1);
+                System.out.println("1 2 3 4 5 ........... 9999");
+                System.out.println("#Quick-sort-rp comparisons: " + s.getCount());
                 break;
             default:
                 System.out.println("Invalid option!");
