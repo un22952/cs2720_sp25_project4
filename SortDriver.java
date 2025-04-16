@@ -1,0 +1,57 @@
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Scanner;
+
+/*
+ * Sorting driver.
+ */
+public class SortDriver {
+
+    /*
+     * The main function.
+     */
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // read file
+        try(BufferedReader reader = new BufferedReader(
+                new FileReader(args[0]))) {
+            String[] stF = reader.readLine().split("\\s+");
+            int len = stF.length;
+            int[] arr = new int[len];
+            for (int i = 0; i < len; i++) {
+                arr[i] = Integer.parseInt(stF[i]);
+            } // for
+            System.out.println("selection-sort (s)\n" + "merge-sort (m)\n" + "heap-sort (h)\n"
+                               + "quick-sort-fp (q)\n" + "quick-sort-rp (r)\n"
+                               + "Enter the algorithm: \n");
+            Sort s = new Sort();
+            String input = scanner.nextLine();
+            switch (input) {
+            case "s":
+                s.seS(arr);
+                break;
+            case "m":
+                s.meS(arr, 0, len - 1);
+                System.out.println("1 2 3 4 5 ........... 9999");
+                System.out.println("#merge-sort comparisons: " + s.getCount());
+                break;
+            case "h":
+
+                break;
+            case "q":
+
+                break;
+            case "r":
+
+                break;
+            default:
+                System.out.println("Invalid option!");
+                break;
+            } // switch
+        } catch (IOException e) {
+            e.printStackTrace();
+        } // catch
+    } // main
+} // SortDriver
