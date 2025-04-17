@@ -6,9 +6,24 @@ import java.util.Random;
 public class Sort {
 
     // comparison counts
-    private int count = 0;
+    private long count = 0;
     // array
-    private int[] array;
+    public int[] array;
+
+    // sort object
+    public Sort(int[] arr) {
+        int len = arr.length;
+        array = new int[len];
+        copyR(arr);
+    } // object class
+
+    public void copyR(int[] arr) {
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            array[i] = arr[i];
+        } // for
+
+    } // copyR
 
     // selection sort
     public void seS(int[] arr) {
@@ -20,7 +35,7 @@ public class Sort {
             index = i;
             for (int j = i + 1; j < len; j++) {
                 if (arr[index] < arr[j]) {
-                    //count++;
+
                     index = j;
                 } // if
                 count++;
@@ -28,10 +43,11 @@ public class Sort {
             swap(arr, i, index);
         } // for
         printR(arr);
-        System.out.println("1 2 3 4 5 ........... 9999");
+
         System.out.println("#Selection-sort comparisons: " + count);
     } // seS
 
+    // print in reverse
     public void printR(int[] arr) {
         for (int i = arr.length - 1; i >= 0; i--) {
             System.out.print(arr[i] + " ");
@@ -39,6 +55,13 @@ public class Sort {
         System.out.println(" ");
     } // printF
 
+    // print forward
+    public void printF(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        } // for
+         System.out.println(" ");
+    } // printF
     // swap function
     private void swap(int[] arr, int i, int j) {
         int temp = arr[i];
@@ -46,19 +69,19 @@ public class Sort {
         arr[j] = temp;
     } // swap
 
-    public int getCount() {
+    public long getCount() {
         return count;
     } // getAL
 
     // merge sort
     public void meS(int[] arr, int left, int right) {
 
-        if (left != right) {
+        if (left < right) {
             int mid = (left + right) / 2;
-            meS(arr, left, mid);
-            meS(arr, mid + 1, right);
+            meS(array, left, mid);
+            meS(array, mid + 1, right);
             // merge them back
-            merge(arr, left, mid, right);
+            merge(array, left, mid, right);
 
         } // if
     } // meS
@@ -67,28 +90,57 @@ public class Sort {
     private void merge(int[] arr, int left, int mid, int right) {
         int lenL = mid - left + 1;
         int lenR = right - mid;
-        int i = left;
-        int j = mid;
-        // compare and swap places
-        while (i <= mid && j <= right) {
 
-            if (arr[i] < arr[j]) {
-                count++;
+        // create temp arrays
+        int[] L = new int[lenL];
+        int[] R = new int[lenR];
+
+        // copy arrays
+        for (int i = 0; i < lenL; i++) L[i] = arr[left + i];
+        for (int j = 0; j < lenR; j++) R[j] = arr[mid + 1 + j];
+
+        int i = 0;
+        int j = 0;
+        int l = left;
+        // compare and swap places
+        while (i < lenL && j < lenR) {
+            count++;
+            // compare to add to array
+            if (L[i] <= R[j]) {
+
+                arr[l] = L[i];
                 i++;
             } else {
+                arr[l] = R[j];
                 j++;
             } // else
+            l++;
+        } // while
+        // copy the remianing ones to array
+        while (i < lenL) {
+            arr[l] = L[i];
+            i++;
+            l++;
+        } // while
+        while (j < lenR) {
+            arr[l] = R[j];
+            j++;
+            l++;
         } // while
 
     } // merge
 
-    // quick sort with left pivot
+    // Quick sort with first element as pivot
     public void quickSL(int[] arr, int left, int right) {
+        quickL(array, left, right);
+    } // quickSL
+    // quick sort with left pivot
+    public void quickL(int[] arr, int left, int right) {
         int len = arr.length;
         if (left < right) {
             int l = left;
             int r = right + 1;
-            count++; // counts for left and right when scanning
+            //count++; // counts for left and right when scanning
             while (l < r) {
                 l += 1;
                 r--;
@@ -119,50 +171,55 @@ public class Sort {
             temp = arr[r];
             arr[r] = arr[left];
             arr[left] = temp;
-            quickSL(arr, left, r - 1);
-            quickSL(arr, r + 1, right);
+            quickL(arr, left, r - 1);
+            quickL(arr, r + 1, right);
 
         } // if
     } // quickSL
 
-    // quick sort with right pivot
+    // Quick Sort with random pivot
     public void quickSR(int[] arr, int left, int right) {
+        Random rand = new Random();
+        int pivot = rand.nextInt(right - left + 1);
+        double d = pivot / (left + right);
+        quickR(array, left, right, d);
+    } // quickSR
+    // quick sort with right pivot
+    public void quickR(int[] arr, int left, int right, double d) {
         if (left < right) {
-            Random rand = new Random();
-            int pivot = rand.nextInt(right - left + 1);// get the random pivot index
 
-            int l = left - 1;
+            int pivot = left + (int)((double)(right - left) * d);// get the random pivot index
+            swap(arr, pivot, left);
+            int l = left;
             int r = right + 1;
-            count++; // counts for left and right when scanning
+
             while (l < r) {
                 l++;
                 r--;
                 // skip the smaller values on the left side
-                while (l <= r && arr[l] < arr[pivot]) {
+                while (l <= r && arr[l] < arr[left]) {
                     l++;
                     count++; // counts for arr[l] and pivot
                 } // while
 
                 // skip the greater value on the right side
-                while (l <= r && arr[r] >= arr[pivot]) {
+                while (l <= r && arr[r] > arr[left]) {
                     r--;
                     count++; // counts for arr[r] and pivot
                 } // while
+                if (l == arr.length) l--;
                 // swap
-                int temp = arr[r];
-                arr[r] = arr[l];
-                arr[l] = temp;
+                swap(arr, r, l);
+
             } // while
             // undo the swap
-            int temp = arr[l];
-            arr[l] = arr[r];
-            arr[r] = temp;
+            swap(arr, r, l);
+
             // swap the pivot
-            temp = arr[l];
-            arr[l] = arr[pivot];
-            arr[pivot] = temp;
-            quickSR(arr, left, l - 1);
-            quickSR(arr, l + 1, right);
+            swap(arr, r, left);
+
+            quickR(arr, left, r - 1, d);
+            quickR(arr, r + 1, right, d);
         } // if
     } // quickRL
 
@@ -183,6 +240,7 @@ public class Sort {
             // reshape the tree
             heapB(arr, i, 0);
         } // for
+        copyR(arr);
     } // heapS
 
     // build the min heap

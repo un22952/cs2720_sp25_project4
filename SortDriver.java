@@ -27,7 +27,7 @@ public class SortDriver {
             System.out.println("selection-sort (s)\n" + "merge-sort (m)\n" + "heap-sort (h)\n"
                                + "quick-sort-fp (q)\n" + "quick-sort-rp (r)\n"
                                + "Enter the algorithm: \n");
-            Sort s = new Sort();
+            Sort s = new Sort(arr);
             String input = scanner.nextLine();
             switch (input) {
             case "s":
@@ -35,26 +35,25 @@ public class SortDriver {
                 break;
             case "m":
                 s.meS(arr, 0, len - 1);
-                System.out.println("1 2 3 4 5 ........... 9999");
+                s.printF(s.array);
+
                 System.out.println("#Merge-sort comparisons: " + s.getCount());
                 break;
             case "h":
                 s.heapS(arr);
-                System.out.println("1 2 3 4 5 ........... 9999");
-                 System.out.println("#Heap-sort comparisons: " + s.getCount());
+                s.printF(s.array);
+                System.out.println("#Heap-sort comparisons: " + s.getCount());
                 break;
             case "q":
                 s.quickSL(arr, 0, len - 1);
-                //s.printR(arr);
-                System.out.println("1 2 3 4 5 ........... 9999");
+
+                s.printF(s.array);
+
                 System.out.println("#Quick-sort-fp comparisons: " + s.getCount());
                 break;
             case "r":
-                Random rand = new Random();
-                int r = rand.nextInt(10000);
-                double d = r/10000;
                 s.quickSR(arr, 0, len - 1);
-                System.out.println("1 2 3 4 5 ........... 9999");
+                s.printF(s.array);
                 System.out.println("#Quick-sort-rp comparisons: " + s.getCount());
                 break;
             default:
