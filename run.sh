@@ -3,4 +3,4 @@
 javac Sort.java
 javac SortDriver.java
 
-java SortDriver ordered.txt
+java SortDriver reverse.txt
