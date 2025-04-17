@@ -38,7 +38,7 @@ public class Sort {
 
                     index = j;
                 } // if
-                count++;
+                count++; // runs n^2 times
             } // for
             swap(arr, i, index);
         } // for
@@ -104,7 +104,7 @@ public class Sort {
         int l = left;
         // compare and swap places
         while (i < lenL && j < lenR) {
-            count++;
+            count++; // runs nlogn times
             // compare to add to array
             if (L[i] <= R[j]) {
 
@@ -137,23 +137,25 @@ public class Sort {
     // quick sort with left pivot
     public void quickL(int[] arr, int left, int right) {
         int len = arr.length;
+
         if (left < right) {
             int l = left;
             int r = right + 1;
-            //count++; // counts for left and right when scanning
+
             while (l < r) {
                 l += 1;
                 r--;
+
                 // skip the smaller value on the left side
                 while (l <= r && arr[left] > arr[l]) {
                     l++;
-                    count++; // counts for arr[l] and pivot
+                    count++; // counts for arr[l] and pivot.
                 } // while
 
                 // skip the greater value on the right
                 while (r >= l && arr[left] < arr[r]) {
                     r--;
-                    count++; // counts for arr[r] and pivot
+                    count++; // counts for arr[r] and pivot.
                 } // while
                 // swap
                 if (l == len) {
@@ -186,26 +188,27 @@ public class Sort {
     } // quickSR
     // quick sort with right pivot
     public void quickR(int[] arr, int left, int right, double d) {
+
         if (left < right) {
 
             int pivot = left + (int)((double)(right - left) * d);// get the random pivot index
-            swap(arr, pivot, left);
-            int l = left;
+            //swap(arr, pivot, left);
+            int l = left - 1;
             int r = right + 1;
-
+            // compare the elements
             while (l < r) {
                 l++;
                 r--;
                 // skip the smaller values on the left side
-                while (l <= r && arr[l] < arr[left]) {
+                while (l <= r && arr[l] <= arr[pivot]) {
                     l++;
-                    count++; // counts for arr[l] and pivot
+                    count++; // counts for arr[l] and pivot. It runs n times
                 } // while
 
                 // skip the greater value on the right side
-                while (l <= r && arr[r] > arr[left]) {
+                while (l <= r && arr[r] > arr[pivot]) {
                     r--;
-                    count++; // counts for arr[r] and pivot
+                    count++; // counts for arr[r] and pivot. It runs n times
                 } // while
                 if (l == arr.length) l--;
                 // swap
@@ -217,7 +220,7 @@ public class Sort {
 
             // swap the pivot
             swap(arr, r, left);
-
+            // recersively runs
             quickR(arr, left, r - 1, d);
             quickR(arr, r + 1, right, d);
         } // if
@@ -245,21 +248,23 @@ public class Sort {
 
     // build the min heap
     public void heapB(int[] arr, int len, int i) {
-        int rootTemp = i;
-        int l = 2 * i + 1;
-        int r = l + 1;
-
+        int rootTemp = i; // root
+        int l = 2 * i + 1;// left child
+        int r = l + 1; // right child
+        count++; // counts for comparing the root and left child
         // if left child is larger than root
         if (l < len && arr[l] > arr[rootTemp]) {
             rootTemp = l;
-            count++;
+
         } // if
+        count++; // counts for comparing the root and right child
         // if right child is larger than root
         if (r < len && arr[r] > arr[rootTemp]) {
             rootTemp = r;
-            count++;
+
         } // if
         // bubble the larger value up
+
         if (rootTemp != i) {
             int tem = arr[i];
             arr[i] = arr[rootTemp];
