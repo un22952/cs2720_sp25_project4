@@ -10,13 +10,17 @@ public class Sort {
     // array
     public int[] array;
 
-    // sort object
+    // The constructor
     public Sort(int[] arr) {
         int len = arr.length;
         array = new int[len];
         copyR(arr);
-    } // object class
+    } // object
 
+
+    /*
+     * Copies arrays
+     */
     public void copyR(int[] arr) {
         int len = arr.length;
         for (int i = 0; i < len; i++) {
@@ -25,7 +29,10 @@ public class Sort {
 
     } // copyR
 
-    // selection sort
+
+    /*
+     * The main funciton of selection sort
+     */
     public void seS(int[] arr) {
         int len = arr.length;
         array = new int[len];
@@ -47,7 +54,9 @@ public class Sort {
         System.out.println("#Selection-sort comparisons: " + count);
     } // seS
 
-    // print in reverse
+    /*
+     * Prints in reverse
+     */
     public void printR(int[] arr) {
         for (int i = arr.length - 1; i >= 0; i--) {
             System.out.print(arr[i] + " ");
@@ -55,25 +64,35 @@ public class Sort {
         System.out.println(" ");
     } // printF
 
-    // print forward
+    /*
+     * Prints forward
+     */
     public void printF(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         } // for
          System.out.println(" ");
     } // printF
-    // swap function
+
+    /*
+     * Swaps elements
+     */
     private void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     } // swap
 
+    /*
+     * Gets counts
+     */
     public long getCount() {
         return count;
     } // getAL
 
-    // merge sort
+    /*
+     * The main function of merge sort
+     */
     public void meS(int[] arr, int left, int right) {
 
         if (left < right) {
@@ -86,7 +105,9 @@ public class Sort {
         } // if
     } // meS
 
-    // merge elements back
+    /*
+     * Merges elements back
+     */
     private void merge(int[] arr, int left, int mid, int right) {
         int lenL = mid - left + 1;
         int lenR = right - mid;
@@ -130,11 +151,16 @@ public class Sort {
 
     } // merge
 
-    // Quick sort with first element as pivot
+    /*
+     * The main function of quick sort with first element as pivot
+     */
     public void quickSL(int[] arr, int left, int right) {
         quickL(array, left, right);
     } // quickSL
-    // quick sort with left pivot
+
+    /*
+     * Quick sort loop of the one with the first member of array as pivot
+     */
     public void quickL(int[] arr, int left, int right) {
         int len = arr.length;
 
@@ -179,14 +205,19 @@ public class Sort {
         } // if
     } // quickSL
 
-    // Quick Sort with random pivot
+    /*
+     * The main function of Quick Sort with random pivot
+     */
     public void quickSR(int[] arr, int left, int right) {
         Random rand = new Random();
         int pivot = rand.nextInt(right - left + 1);
         double d = pivot / (left + right);
         quickR(array, left, right, d);
     } // quickSR
-    // quick sort with right pivot
+
+    /*
+     * The loop of quick sort with random pivot
+     */
     public void quickR(int[] arr, int left, int right, double d) {
 
         if (left < right) {
@@ -226,7 +257,9 @@ public class Sort {
         } // if
     } // quickRL
 
-    // heap sort
+    /*
+     * The main function of heap sort
+     */
     public void heapS(int[] arr) {
         int len = arr.length;
         // sort the array in max heap way
@@ -246,7 +279,9 @@ public class Sort {
         copyR(arr);
     } // heapS
 
-    // build the min heap
+    /*
+     * Builds the max heap
+     */
     public void heapB(int[] arr, int len, int i) {
         int rootTemp = i; // root
         int l = 2 * i + 1;// left child
@@ -264,7 +299,6 @@ public class Sort {
 
         } // if
         // bubble the larger value up
-
         if (rootTemp != i) {
             int tem = arr[i];
             arr[i] = arr[rootTemp];
