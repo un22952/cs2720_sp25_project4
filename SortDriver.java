@@ -64,4 +64,13 @@ public class SortDriver {
             e.printStackTrace();
         } // catch
     } // main
+
+    public static int[] Ex2(Scanner scanner) {
+        System.out.println("Enter the size of array (integer): ");
+        String input = scanner.nextLine();
+        Random rand = new Random();
+        int len = Integer.parseInt(input);
+
+    } // Ex2
+
 } // SortDriver
