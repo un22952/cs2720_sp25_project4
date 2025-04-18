@@ -10,7 +10,7 @@ public class SortDriver {
 
     /*
      * The main function.
-     *
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -63,12 +63,12 @@ public class SortDriver {
             e.printStackTrace();
         } // catch
     } // main
-    */
+
 
 
 /*
  * The main function for experiment 2
- */
+ *
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -126,5 +126,5 @@ public class SortDriver {
         } // switch
 
     } // main
-
+*/
 } // SortDriver
